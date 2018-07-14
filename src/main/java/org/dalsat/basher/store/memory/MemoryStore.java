@@ -9,12 +9,21 @@ import java.util.stream.Stream;
 
 public class MemoryStore implements Store {
 
-    private Map<String, User> users = new HashMap<>();
-    long userCounter = 0;
+    private Map<String, User> users;
+    long userCounter;
 
-    private Map<User, List<Message>> messages = new HashMap<>();
+    private Map<User, List<Message>> messages;
 
-    private Map<User, Set<User>> follows = new HashMap<>();
+    private Map<User, Set<User>> follows;
+
+    private void initializeStore() {
+        users = new HashMap<>();
+        userCounter = 0;
+        messages = new HashMap<>();
+        follows = new HashMap<>();
+    }
+
+    public MemoryStore() { initializeStore(); }
 
     private Optional<User> getUser(String username) {
         return Optional.ofNullable(users.getOrDefault(username, null));
@@ -64,6 +73,11 @@ public class MemoryStore implements Store {
     @Override
     public Collection<User> listOfUsers() {
         return users.values();
+    }
+
+    @Override
+    public void reset() {
+        initializeStore();
     }
 
 }

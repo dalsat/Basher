@@ -57,4 +57,9 @@ public interface Store {
      * @return A list of users
      */
     Collection<User> listOfUsers();
+
+    /**
+     * Removes all the data in the store.
+     */
+    void reset();
 }

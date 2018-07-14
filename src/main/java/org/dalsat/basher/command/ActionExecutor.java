@@ -14,6 +14,7 @@ public class ActionExecutor {
             new Follow(),
             new Wall(),
             new ListUsers(),
+            new Reset(),
             new Quit()
     );
 

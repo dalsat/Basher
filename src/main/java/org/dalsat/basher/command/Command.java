@@ -3,42 +3,49 @@ package org.dalsat.basher.command;
 import java.util.Optional;
 
 public class Command {
-    String username;
-    String action;
-    String parameter;
+    private String username;
+    private String action;
+    private String parameter;
 
     private Command() {}
 
-    public Command(String username) {
-        this.username = username;
+    public static Command forUser(String username) {
+        var newCommand = new Command();
+        newCommand.username = username;
+        return newCommand;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setAction(String action) {
-        this.action = action;
-    }
-
     public Optional<String> getAction() {
         return Optional.ofNullable(action);
-    }
-
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
     }
 
     public Optional<String> getParameter() {
         return Optional.ofNullable(parameter);
     }
 
+    public void setAction(String action) {
+        if (action.isEmpty()) {
+            this.action= null;
+        } else {
+            this.action = action;
+        }
+    }
+
+    public void setParameter(String parameter) {
+        if (parameter.isEmpty()) {
+            this.parameter = null;
+        } else {
+            this.parameter = parameter;
+        }
+    }
+
     @Override
     public String toString() {
-        String returnString = '[' + username + "] " + action;
-        if (parameter != null) {
-            returnString += " (" + parameter + ')';
-        }
-        return returnString;
+        return String.format("Command[username='%s', action='%s', parameter='%s'",
+                username, action, parameter);
     }
 }

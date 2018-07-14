@@ -6,7 +6,6 @@ import org.dalsat.basher.input.Console;
 import org.dalsat.basher.store.Stores;
 import org.dalsat.basher.store.core.Store;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public enum Basher {
@@ -31,11 +30,10 @@ public enum Basher {
 
         System.out.println("Listening...");
         while(running) {
-            try {
-                executeCommand(console.nextCommand());
-            } catch (IOException e) {
-                System.err.println("invalid command");
-            }
+            console.nextCommand().ifPresentOrElse(
+                    this::executeCommand,
+                    () -> System.out.println("invalid command")
+            );
         }
     }
 

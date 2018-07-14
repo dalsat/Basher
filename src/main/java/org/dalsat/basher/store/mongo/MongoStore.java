@@ -60,6 +60,11 @@ public class MongoStore implements Store {
         return null;
     }
 
+    @Override
+    public void reset() {
+
+    }
+
     public void addUser(String username) {
         System.out.println(userRepository);
         userRepository.save(new User(username));
