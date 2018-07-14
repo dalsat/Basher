@@ -14,6 +14,6 @@ public class Wall implements Action {
     @Override
     public void execute(Command command, Store store) {
         var user = store.getOrAddUser(command.getUsername());
-        store.wall(user).forEach(message -> System.out.println(message));
+        store.wall(user).forEach(System.out::println);
     }
 }

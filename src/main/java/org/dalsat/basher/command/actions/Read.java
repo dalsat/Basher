@@ -22,6 +22,6 @@ public class Read implements Action {
     }
 
     private void printMessages(List<?> messages) {
-        messages.forEach(message -> System.out.println(message));
+        messages.forEach(System.out::println);
     }
 }
