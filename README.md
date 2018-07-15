@@ -1,4 +1,4 @@
-[![Travis](https://img.shields.io/travis/ilredeitopi/Basher.svg)](https://travis-ci.org/ilredeitopi/Basher)
+[![Build Status](https://travis-ci.org/ilredeitopi/Basher.svg?branch=master)](https://travis-ci.org/ilredeitopi/Basher)
 
 # Basher
 A command line social network
