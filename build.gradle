@@ -13,8 +13,8 @@ plugins {
 }
 
 version = '0.1.0'
-
 mainClassName = 'me.dalsat.basher.manager.Basher'
+sourceCompatibility = 10
 
 repositories {
     mavenCentral()
