@@ -13,14 +13,15 @@ public class MongoMessage extends Message {
 
     @PrePersist
     void prePersist() {
-        // removing the user to break circular dependency
+        // remove the user to break circular dependency
         userBuffer = user;
         user = null;
     }
 
     @PostPersist
     void postPersist() {
-         user = userBuffer;
+        // put the user back
+        user = userBuffer;
     }
 
 

@@ -3,8 +3,6 @@ package me.dalsat.basher.command.actions;
 import me.dalsat.basher.command.Command;
 import me.dalsat.basher.store.core.Store;
 
-import java.util.List;
-
 public class Read implements Action {
 
     @Override

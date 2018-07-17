@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class MongoUser implements User {
 
     @Id
-    public ObjectId id;
+    private ObjectId id;
 
     private String name;
 
@@ -30,17 +30,17 @@ public class MongoUser implements User {
     @Transient
     private Datastore datastore;
 
-    public static MongoUser named(String name) {
+    static MongoUser named(String name) {
         var newUser = new MongoUser();
         newUser.name = name;
         return newUser;
     }
 
-    public void setDatastore(Datastore datastore) {
+    void setDatastore(Datastore datastore) {
         this.datastore = datastore;
     }
 
-    public void commit() {
+    private void commit() {
         datastore.save(this);
     }
 
@@ -51,8 +51,9 @@ public class MongoUser implements User {
 
     @Override
     public void follow(User user) {
-        if (!follows.contains(user)) {
-            follows.add((MongoUser)user);
+        var mongoUser = (MongoUser)user;
+        if (!follows.contains(mongoUser)) {
+            follows.add(mongoUser);
         }
         commit();
     }
@@ -62,10 +63,6 @@ public class MongoUser implements User {
         var newMessage = MongoMessage.newMessage(this, message);
         messages.add(newMessage);
         commit();
-    }
-
-    public List<? extends Message> getMessages() {
-        return messages;
     }
 
     @Override

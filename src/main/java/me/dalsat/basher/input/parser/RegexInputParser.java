@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class RegexInputParser implements InputParser {
 
-    public static final String PARSING_REGEX = "(\\S+)\\s*(\\S*)\\s*(.*)";
+    private static final String PARSING_REGEX = "(\\S+)\\s*(\\S*)\\s*(.*)";
     private Pattern pattern = Pattern.compile(PARSING_REGEX);
 
     @Override

@@ -31,7 +31,7 @@ public class Message implements Comparable<Message> {
         return text;
     }
 
-    public Duration timeDelta() {
+    private Duration timeDelta() {
         return Duration.between(TIMESTAMP, Instant.now());
     }
 

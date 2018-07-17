@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public class ActionExecutor {
 
-    List<Action> actions = List.of(
+    private List<Action> actions = List.of(
             new Read(),
             new Post(),
             new Follow(),

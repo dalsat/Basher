@@ -1,7 +1,6 @@
 package me.dalsat.basher.store.core;
 
 import me.dalsat.basher.command.Message;
-import me.dalsat.basher.store.memory.MemoryUser;
 
 import java.util.List;
 import java.util.stream.Stream;
