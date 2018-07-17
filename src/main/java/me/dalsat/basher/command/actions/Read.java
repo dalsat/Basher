@@ -13,7 +13,7 @@ public class Read implements Action {
     @Override
     public void execute(Command command, Store store) {
         var user = store.getOrAddUser(command.getUsername());
-        printMessages(store.messagesFor(user));
+        user.listOfMessages().forEach(System.out::println);
     }
 
     @Override
@@ -21,7 +21,4 @@ public class Read implements Action {
         return !command.getAction().isPresent();
     }
 
-    private void printMessages(List<?> messages) {
-        messages.forEach(System.out::println);
-    }
 }

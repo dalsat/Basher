@@ -13,6 +13,7 @@ import java.util.Optional;
 public class Console {
 
     private BufferedReader source;
+    private String prompt = "basher~> ";
 
     private InputParser parser = new RegexInputParser();
 
@@ -22,12 +23,13 @@ public class Console {
 
     public Optional<Command> nextCommand() {
 
+        System.out.print(prompt);
         try {
-            var line = source.readLine();
-            return parser.parseCommand(line);
+            return parser.parseCommand(source.readLine());
         }
         catch (IOException e) {
             return Optional.empty();
         }
     }
+
 }

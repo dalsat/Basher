@@ -1,29 +1,19 @@
 package me.dalsat.basher.store.memory;
 
-import me.dalsat.basher.command.Message;
-import me.dalsat.basher.store.core.User;
 import me.dalsat.basher.store.core.Store;
+import me.dalsat.basher.store.core.User;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
 
 public class MemoryStore implements Store {
 
-    private Map<String, User> users;
-    long userCounter;
+    private Map<String, User> users = new HashMap<>();
 
-    private Map<User, List<Message>> messages;
-
-    private Map<User, Set<User>> follows;
-
-    private void initializeStore() {
-        users = new HashMap<>();
-        userCounter = 0;
-        messages = new HashMap<>();
-        follows = new HashMap<>();
-    }
-
-    public MemoryStore() { initializeStore(); }
+    public MemoryStore() { reset(); }
 
     private Optional<User> getUser(String username) {
         return Optional.ofNullable(users.getOrDefault(username, null));
@@ -35,49 +25,24 @@ public class MemoryStore implements Store {
     }
 
     private User addUser(String username) {
-        User newUser = new User(userCounter ++, username);
+        User newUser = newUser(username);
         users.put(username, newUser);
-        messages.put(newUser, new ArrayList<>());
-        follows.put(newUser, new HashSet<>());
-        follow(newUser, newUser);
+        newUser.follow(newUser);
         return newUser;
     }
 
-    @Override
-    public void postMessage(Message message) {
-        messages.get(message.getUser()).add(message);
+    private User newUser(String username) {
+        return MemoryUser.named(username);
     }
 
     @Override
-    public List<Message> messagesFor(User user) {
-        return Collections.unmodifiableList(messages.get(user));
-    }
-
-    @Override
-    public Stream<Message> wall(User user) {
-        return follows.get(user).stream()
-                .flatMap(eachUser -> messagesFor(eachUser).stream())
-                .sorted();
-    }
-
-    @Override
-    public void follow(User follower, User followee) {
-        follows.get(follower).add(followee);
-    }
-
-    @Override
-    public void unfollow(User follower, User followee) {
-        follows.get(follower).remove(followee);
-    }
-
-    @Override
-    public Collection<User> listOfUsers() {
+    public Collection<? extends User> listOfUsers() {
         return users.values();
     }
 
     @Override
     public void reset() {
-        initializeStore();
+        users = new HashMap<>();
     }
 
 }

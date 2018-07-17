@@ -14,7 +14,7 @@ public class Follow implements Action {
     public void execute(Command command, Store store) {
         var follower = store.getOrAddUser(command.getUsername());
         command.getParameter().ifPresentOrElse(
-                followee -> store.follow(follower, store.getOrAddUser(followee)),
+                followee -> follower.follow(store.getOrAddUser(followee)),
                 () -> System.err.println("specify the user to follow"));
     }
 }

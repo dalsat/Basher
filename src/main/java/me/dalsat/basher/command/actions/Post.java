@@ -1,9 +1,8 @@
 package me.dalsat.basher.command.actions;
 
 import me.dalsat.basher.command.Command;
-import me.dalsat.basher.command.Message;
-import me.dalsat.basher.store.core.User;
 import me.dalsat.basher.store.core.Store;
+import me.dalsat.basher.store.core.User;
 
 public class Post implements Action {
 
@@ -16,13 +15,8 @@ public class Post implements Action {
     public void execute(Command command, Store store) {
         var user = store.getOrAddUser(command.getUsername());
         command.getParameter().ifPresentOrElse(
-                parameter -> postMessage(user, parameter, store),
+                parameter -> user.postMessage(parameter),
                 () -> System.err.println("empty message"));
     }
 
-    private void postMessage(User user, String parameter, Store store) {
-        var message = Message.newMessage(user, parameter);
-        store.postMessage(message);
-        System.out.println(message);
-    }
 }

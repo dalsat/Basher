@@ -1,22 +1,37 @@
 package me.dalsat.basher.store.core;
 
-public class User {
-    String name;
-    long id;
+import me.dalsat.basher.command.Message;
+import me.dalsat.basher.store.memory.MemoryUser;
 
-    public User(long id, String name) {
-        this.id = id;
-        this.name = name;
-    };
+import java.util.List;
+import java.util.stream.Stream;
 
-    public String getName() {
-        return name;
-    }
+public interface User {
 
-    public long getId() { return id; }
+    String getName();
 
-    @Override
-    public String toString() {
-        return name + '(' + id + ')';
-    }
+    /**
+     * Creates a 'follow' relation between this user and the followee.
+     * @param user the user who is followed
+     */
+    void follow(User user);
+
+    /**
+     * Add a new message to the list of posted messages.
+     * @param message a string with new message to post
+     */
+    void postMessage(String message);
+
+    /**
+     * Returns all the messages posted by a user.
+     * @return the messages posted by the user
+     */
+    List<Message> listOfMessages();
+
+    /**
+     * Get the list of all the messages posted by the author and by the users she follows.
+     * The messages are sorted by publication date.
+     * @return a Stream of Messages
+     */
+    Stream<Message> wall();
 }

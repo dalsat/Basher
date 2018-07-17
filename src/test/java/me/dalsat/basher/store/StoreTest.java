@@ -1,6 +1,5 @@
 package me.dalsat.basher.store;
 
-import me.dalsat.basher.command.Message;
 import me.dalsat.basher.store.core.Store;
 import me.dalsat.basher.store.core.User;
 import org.junit.jupiter.api.Assertions;
@@ -8,14 +7,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class StoreTest {
 
-    Store store;
-    User ada, bob;
+    protected Store store;
+    protected User ada, bob;
 
     @BeforeAll
     static void setUpAll() {
@@ -25,6 +22,7 @@ public abstract class StoreTest {
     @BeforeEach
     void setUp() {
         store = newStore();
+        store.reset();
         ada = store.getOrAddUser("ada");
         bob = store.getOrAddUser("bob");
     }
@@ -39,8 +37,7 @@ public abstract class StoreTest {
     @Test
     void testPostMessage() {
         var messageTest = "hello from ada";
-        var message = Message.newMessage(ada, messageTest);
-        store.postMessage(message);
+        ada.postMessage(messageTest);
     }
 
     @Test
@@ -48,11 +45,11 @@ public abstract class StoreTest {
         var adaMessage = "hello from ada";
         var bobMessage = "goodbye from bob";
 
-        store.postMessage(Message.newMessage(ada, adaMessage));
-        store.postMessage(Message.newMessage(bob, bobMessage));
+        ada.postMessage(adaMessage);
+        bob.postMessage(bobMessage);
 
-        var retrievedAdaMessages = store.messagesFor(ada);
-        var retrievedBobMessages = store.messagesFor(bob);
+        var retrievedAdaMessages = ada.listOfMessages();
+        var retrievedBobMessages = bob.listOfMessages();
 
         assertAll ("number of messages",
                 () -> assertEquals(1, retrievedAdaMessages.size()),
@@ -71,12 +68,12 @@ public abstract class StoreTest {
         var adaMessage = "hello from ada";
         var bobMessage = "goodbye from bob";
 
-        store.postMessage(Message.newMessage(ada, adaMessage));
-        store.postMessage(Message.newMessage(bob, bobMessage));
+        ada.postMessage(adaMessage);
+        bob.postMessage(bobMessage);
 
-        store.follow(ada, bob);
+        ada.follow(bob);
 
-        assertEquals(2, store.wall(ada).toArray().length);
+        assertEquals(2, ada.wall().toArray().length);
     }
 
     @Test
@@ -86,8 +83,8 @@ public abstract class StoreTest {
     void testListOfUsers() {
         var users = store.listOfUsers();
         assertEquals(2, users.size());
-        assertTrue(users.contains(ada));
-        assertTrue(users.contains(bob));
+        assertTrue(users.contains(ada), "list of users does not contain ada");
+        assertTrue(users.contains(bob), "list of users does not contain bob");
     }
 
 }

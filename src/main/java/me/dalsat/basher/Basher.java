@@ -1,4 +1,4 @@
-package me.dalsat.basher.manager;
+package me.dalsat.basher;
 
 import me.dalsat.basher.command.ActionExecutor;
 import me.dalsat.basher.command.Command;
@@ -8,6 +8,7 @@ import me.dalsat.basher.store.core.Store;
 
 import java.io.InputStream;
 
+
 public enum Basher {
 
     INSTANCE;
@@ -16,7 +17,7 @@ public enum Basher {
     private ActionExecutor actionPerformer = new ActionExecutor();
     private boolean running = false;
 
-    private Store store = Stores.newMemoryStore();
+    private Store store = Stores.newMongoStore(); //newMemoryStore();
 
     Basher() {
         setInput(System.in);
@@ -26,15 +27,23 @@ public enum Basher {
         console = new Console(is);
     }
 
-    private void loop() {
+    private String banner() {
+        return "Welcome to Basher: the command line social network.";
+    }
+    private String byeBanner() {
+        return "Quitting Basher. Goodbye!";
+    }
 
-        System.out.println("Listening...");
+    private void run() {
+
+        System.out.println(banner());
         while(running) {
             console.nextCommand().ifPresentOrElse(
                     this::executeCommand,
                     () -> System.out.println("invalid command")
             );
         }
+        System.out.println(byeBanner());
     }
 
     public Store getStore() {
@@ -45,9 +54,10 @@ public enum Basher {
         actionPerformer.execute(command, store);
     }
 
+
     public static void start() {
         INSTANCE.running = true;
-        INSTANCE.loop();
+        INSTANCE.run();
     }
 
     public static void stop() {

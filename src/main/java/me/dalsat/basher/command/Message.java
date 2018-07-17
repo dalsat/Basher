@@ -7,11 +7,12 @@ import java.time.Instant;
 
 public class Message implements Comparable<Message> {
 
-    private User user;
-    private String text;
+
+    protected User user;
+    protected String text;
     public final Instant TIMESTAMP = Instant.now();
 
-    private Message() {};
+    protected Message() {}
 
     public static Message newMessage(User user, String text) {
         Message newMessage = new Message();
@@ -19,6 +20,8 @@ public class Message implements Comparable<Message> {
         newMessage.text = text;
         return newMessage;
     }
+
+    public void setUser(User user) { this.user = user; }
 
     public User getUser() {
         return user;
@@ -48,7 +51,7 @@ public class Message implements Comparable<Message> {
 
     @Override
     public String toString() {
-        return '[' + user.getName() + "] " + text + " - " + deltaString();
+        return user.getName() + " - " + text + " (" + deltaString() + ')';
     }
 
     @Override

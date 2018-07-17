@@ -1,85 +1,73 @@
 package me.dalsat.basher.store.mongo;
 
-import me.dalsat.basher.command.Message;
+import com.mongodb.MongoClient;
 import me.dalsat.basher.store.core.Store;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import me.dalsat.basher.store.core.User;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.FindOptions;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.*;
 
-@Configuration
+
 public class MongoStore implements Store {
 
-    String configLocation = "basher-config.xml";
-    ClassPathXmlApplicationContext context;
-    private UserRepository userRepository;
+    private final Morphia morphia = new Morphia();
+
+    private Datastore datastore;
+    private String dbName = "basher";
 
     public MongoStore() {
-        context = new ClassPathXmlApplicationContext(configLocation);
-//        context = new ClassPathXmlApplicationContext(new ClassPathResource("basher-config.xml").getPath());
+        initializeStore();
+    }
 
-        userRepository = context.getBean(UserRepository.class);
+    public MongoStore(String dbName) {
+        this.dbName = dbName;
+        initializeStore();
+    }
 
+    public void initializeStore() {
+        morphia.mapPackage("me.dalsat.basher.store.mongo");
+
+        datastore = morphia.createDatastore(new MongoClient(), dbName);
+        datastore.ensureIndexes();
+    }
+
+    private Optional<User> getUser(String username) {
+        var query = datastore.createQuery(MongoUser.class)
+                .field("name").equal(username);
+        final List<MongoUser> users = query.asList(new FindOptions().limit(1));
+        if (users.size() > 0) {
+            var user = users.get(0);
+            user.setDatastore(datastore);
+            return Optional.of(user);
+        } else {
+            return Optional.empty();
+        }
     }
 
     @Override
-    public me.dalsat.basher.store.core.User getOrAddUser(String username) {
-        var user = userRepository.findByUsername(username);
-        return new me.dalsat.basher.store.core.User(1,"ada");
+    public User getOrAddUser(String username) {
+        return getUser(username).orElseGet(() -> addUser(username));
+    }
+
+    private User addUser(String username) {
+        final var newUser = MongoUser.named(username);
+        newUser.setDatastore(datastore);
+        datastore.save(newUser);
+        newUser.follow(newUser);
+        return newUser;
     }
 
     @Override
-    public void postMessage(Message message) {
-
-    }
-
-    @Override
-    public List<Message> messagesFor(me.dalsat.basher.store.core.User user) {
-        return null;
-    }
-
-    @Override
-    public Stream<Message> wall(me.dalsat.basher.store.core.User user) {
-        return null;
-    }
-
-    @Override
-    public void follow(me.dalsat.basher.store.core.User follower, me.dalsat.basher.store.core.User followee) {
-
-    }
-
-    @Override
-    public void unfollow(me.dalsat.basher.store.core.User follower, me.dalsat.basher.store.core.User followee) {
-
-    }
-
-    @Override
-    public Collection<me.dalsat.basher.store.core.User> listOfUsers() {
-        return null;
+    public Collection<? extends User> listOfUsers() {
+        final var query = datastore.createQuery(MongoUser.class);
+        return query.asList();
     }
 
     @Override
     public void reset() {
-
-    }
-
-    public void addUser(String username) {
-        System.out.println(userRepository);
-        userRepository.save(new User(username));
-    }
-
-    public User findUserNamed(String username) {
-        return null;
-    }
-
-    public static void main(String[] args) {
-
-        var repository = new MongoStore();
-
-        repository.addUser("ada");
-        System.out.println(repository.findUserNamed("ada"));
+        datastore.getDB().dropDatabase();
     }
 
 }
