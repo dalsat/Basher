@@ -2,7 +2,6 @@ package me.dalsat.basher.command.actions;
 
 import me.dalsat.basher.command.Command;
 import me.dalsat.basher.store.core.Store;
-import me.dalsat.basher.store.core.User;
 
 public class Post implements Action {
 
