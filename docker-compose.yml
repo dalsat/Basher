@@ -1,0 +1,13 @@
+version: '3'
+services:
+  basher:
+    build: .
+    stdin_open: true
+    tty: true
+    environment:
+      BASHER_DB: mongo
+      BASHER_MONGO_HOST: mongo:27017
+    depends_on:
+        - mongo
+  mongo:
+    image: "mongo"
