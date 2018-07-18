@@ -5,8 +5,15 @@ import me.dalsat.basher.command.Message;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Defines a user and the actions that she can perform.
+ */
 public interface User {
 
+    /**
+     * Returns the name of the user.
+     * @return the name of the user.
+     */
     String getName();
 
     /**

@@ -2,6 +2,10 @@ package me.dalsat.basher.store.core;
 
 import java.util.Collection;
 
+/**
+ * Defines the a data store, i.e. the persistence layer to store users
+ * and messages.
+ */
 public interface Store {
 
     /**

@@ -6,6 +6,13 @@ import me.dalsat.basher.store.core.Store;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Provides the functionality to select and perform the appropriate action from the
+ * command that it receives.
+ * 
+ * To add a new action, insert into the <code>actions</code> list an
+ * implementation of the interface <code>Action</code>.
+ */
 public class ActionExecutor {
 
     private List<Action> actions = List.of(
@@ -24,10 +31,12 @@ public class ActionExecutor {
                 .findFirst();
     }
 
-    public void execute(Command command, Store store) {
-        actionFor(command)
-            .ifPresentOrElse(
-                    action -> action.execute(command, store),
-                    () -> System.err.println("invalid action"));
+    public String execute(Command command, Store store) {
+        var action = actionFor(command);
+        if (action.isPresent()) {
+            return action.get().execute(command, store);
+        } else {
+            return "invalid action";
+        }
     }
 }

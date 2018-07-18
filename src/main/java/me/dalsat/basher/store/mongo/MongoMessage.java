@@ -5,6 +5,10 @@ import me.dalsat.basher.store.core.User;
 import org.mongodb.morphia.annotations.*;
 
 
+/**
+ * Extends the <code>Message</code> class to define the mappings to
+ * the MongoDB database.
+ */
 @Embedded
 public class MongoMessage extends Message {
 

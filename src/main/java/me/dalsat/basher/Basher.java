@@ -9,6 +9,11 @@ import me.dalsat.basher.store.core.Store;
 import java.io.InputStream;
 
 
+/**
+ * Main entry point for the application.
+ * Provides the methods to start/stop the application, and implements the
+ * cycle read->interpret->execute->feedback.
+ */
 public enum Basher {
 
     INSTANCE;
@@ -36,14 +41,14 @@ public enum Basher {
 
     private void run() {
 
-        System.out.println(banner());
+        console.println(banner());
         while(running) {
             console.nextCommand().ifPresentOrElse(
                     this::executeCommand,
-                    () -> System.out.println("invalid command")
+                    () -> console.println("invalid command")
             );
         }
-        System.out.println(byeBanner());
+        console.println(byeBanner());
     }
 
     public Store getStore() {
@@ -51,7 +56,7 @@ public enum Basher {
     }
 
     private void executeCommand(Command command) {
-        actionPerformer.execute(command, store);
+        console.println(actionPerformer.execute(command, store));
     }
 
 

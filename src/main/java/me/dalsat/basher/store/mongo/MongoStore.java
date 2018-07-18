@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * Implements the connaction with the MongoDB database, to store
+ * messages and users.
+ */
 public class MongoStore implements Store {
 
     private final Morphia morphia = new Morphia();

@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/**
+ * Implements a user that can be stored into a <code>MemoryStore</code>
+ * repository.
+ */
 public class MemoryUser implements User {
     private String name;
 

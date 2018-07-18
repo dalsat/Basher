@@ -5,6 +5,9 @@ import me.dalsat.basher.command.Command;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+/**
+ * Provides a parser to interpret commands by using regular expressions.
+ */
 public class RegexInputParser implements InputParser {
 
     private static final String PARSING_REGEX = "(\\S+)\\s*(\\S*)\\s*(.*)";

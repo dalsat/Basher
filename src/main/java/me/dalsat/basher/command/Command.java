@@ -2,6 +2,10 @@ package me.dalsat.basher.command;
 
 import java.util.Optional;
 
+/**
+ * Models a command issued from the command line, separated into its
+ * components: the issuing user, the action, and the parameter.
+ */
 public class Command {
     private String username;
     private String action;

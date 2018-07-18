@@ -4,6 +4,10 @@ import me.dalsat.basher.store.core.Store;
 import me.dalsat.basher.store.memory.MemoryStore;
 import me.dalsat.basher.store.mongo.MongoStore;
 
+/**
+ * Utility factory class to create the appropriate store according to
+ * the settings.
+ */
 public interface Stores {
 
     /**

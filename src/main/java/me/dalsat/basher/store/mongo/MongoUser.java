@@ -12,6 +12,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 
+/**
+ * Implements a user that can be stored into a <code>MongoStore</code>
+ * repository.
+ */
 @Entity("users")
 @Indexes({ @Index(fields = @Field("name")) })
 public class MongoUser implements User {

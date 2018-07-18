@@ -9,6 +9,11 @@ import java.util.Map;
 import java.util.Optional;
 
 
+/**
+ * Implements the in-memory database, that stores messages and users without
+ * the need for setting an external database, but that gets deleted after
+ * the end of the execution of the application.
+ */
 public class MemoryStore implements Store {
 
     private Map<String, User> users = new HashMap<>();

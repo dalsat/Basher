@@ -4,6 +4,9 @@ import me.dalsat.basher.command.Command;
 import me.dalsat.basher.Basher;
 import me.dalsat.basher.store.core.Store;
 
+/**
+ * Provides the "quit" command, that terminates the application.
+ */
 public class Quit implements Action {
 
     @Override
@@ -11,8 +14,9 @@ public class Quit implements Action {
 
 
     @Override
-    public void execute(Command command, Store store) {
+    public String execute(Command command, Store store) {
         Basher.stop();
+        return "";
     }
 
 }

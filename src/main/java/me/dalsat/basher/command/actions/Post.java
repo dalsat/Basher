@@ -3,6 +3,9 @@ package me.dalsat.basher.command.actions;
 import me.dalsat.basher.command.Command;
 import me.dalsat.basher.store.core.Store;
 
+/**
+ * Provides the "post" command, that allows a user to publish a new message.
+ */
 public class Post implements Action {
 
     @Override
@@ -11,11 +14,15 @@ public class Post implements Action {
     }
 
     @Override
-    public void execute(Command command, Store store) {
+    public String execute(Command command, Store store) {
         var user = store.getOrAddUser(command.getUsername());
-        command.getParameter().ifPresentOrElse(
-                parameter -> user.postMessage(parameter),
-                () -> System.err.println("empty message"));
+        var parameter = command.getParameter();
+        if (parameter.isPresent()) {
+            user.postMessage(parameter.get());
+            return "post -> ok";
+        } else {
+            return "empty message";
+        }
     }
 
 }

@@ -5,8 +5,12 @@ import me.dalsat.basher.store.core.User;
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * Models a message (post) published by a user.
+ * It contains the author, the time of publishing, and the contents of
+ * the message.
+ */
 public class Message implements Comparable<Message> {
-
 
     protected User user;
     protected String text;
