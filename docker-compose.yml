@@ -1,6 +1,6 @@
 version: '3'
 services:
-  basher:
+  app:
     build: .
     stdin_open: true
     tty: true

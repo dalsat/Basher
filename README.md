@@ -7,18 +7,30 @@ Implementation of the programming kata described in: [xpeppers/social_networking
 
 ## Available Commands
 
-- read
-- post
-- follow
-- wall
-- users
-- reset
+By default Basher reads a command from the standard input and prints its output to the standard output.
 
+A command is in the form `username [action [parameter]]`.
+
+Basher provides the following commands:
+
+- post: `ada -> hello basher!` creates a new message posted by the user _ada_
+- read: `ada` shows the list of messages posted by the user _ada_
+- follow: `ada follow bob` allows _ada_ to follow _bob_'s messages.
+- wall: `ada wall` prints a list of _ada_'s messages, together with the messages of all the users she is following.
+- users: `ada users` prints a list of users subscribed to the system.
+- reset: `ada reset` deletes all the data from the current database.
+- quit: `ada quit` terminates the application.
 
 ## Run Basher
 
 ### In a Docker Container (Recommended)
-TODO: mongo compose file
+
+You can build and run Basher using _docker-compose_.
+From the project directory run:
+```
+docker-compose run app
+```
+
 
 ### Build Basher Locally
 Build the project with:
@@ -47,4 +59,9 @@ By default Basher is configured to use in-memory database to minimize the instal
 You can explicitly select to use MongoDB by setting the environment variable `BASHER_DATABASE` to `'mongo'` before starting the application.
 ```
 export BASHER_DB="mongo"
+```
+Moreover, you can specify the host address and port used by MongoDB by modifying the environment variable `BASHER_MONGO_HOST`. The default is `localhost`.
+
+```
+export BASHER_MONGO_HOST="mongo"
 ```
