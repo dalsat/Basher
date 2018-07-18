@@ -3,7 +3,7 @@
 # Basher
 A command line social network.
 
-Implementation of the programming kata described in: [xpeppers/social_networking_kata](https://github.com/xpeppers/social_networking_kata).
+Implementation of the programming kata described in: [sandromancuso/social_networking_kata](https://github.com/sandromancuso/social_networking_kata).
 
 ## Available Commands
 
