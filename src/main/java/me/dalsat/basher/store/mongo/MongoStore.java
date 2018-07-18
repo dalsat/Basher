@@ -7,7 +7,9 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.FindOptions;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 
 public class MongoStore implements Store {
@@ -26,7 +28,7 @@ public class MongoStore implements Store {
         initializeStore();
     }
 
-    public void initializeStore() {
+    private void initializeStore() {
         morphia.mapPackage("me.dalsat.basher.store.mongo");
 
         datastore = morphia.createDatastore(new MongoClient(), dbName);

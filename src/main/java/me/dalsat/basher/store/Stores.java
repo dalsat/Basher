@@ -7,6 +7,26 @@ import me.dalsat.basher.store.mongo.MongoStore;
 public interface Stores {
 
     /**
+     * Creates the appropriate database specified in the environment variable BASHER_DB
+     * @return
+     */
+    static Store getStore() {
+        var dbType = System.getenv("BASHER_DB");
+        if (dbType == null) {
+            dbType = "mongo";
+        }
+
+        if (dbType.equals("mongo")) {
+            System.out.println("Initializinge MongoDB");
+            return newMongoStore();
+        }
+
+        // default store: in-memory
+        System.out.println("Initializing in-memory database");
+        return newMemoryStore();
+    }
+
+    /**
      * Creates a new in-memory database.
      * @return a new MemoryStore object
      */

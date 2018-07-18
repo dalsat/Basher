@@ -17,7 +17,7 @@ public enum Basher {
     private ActionExecutor actionPerformer = new ActionExecutor();
     private boolean running = false;
 
-    private Store store = Stores.newMongoStore(); //newMemoryStore();
+    private Store store = Stores.getStore();
 
     Basher() {
         setInput(System.in);
