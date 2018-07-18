@@ -39,23 +39,29 @@ public class Message implements Comparable<Message> {
         return Duration.between(TIMESTAMP, Instant.now());
     }
 
-    private String deltaString() {
+    private String deltaPrintString() {
         var deltaString = new StringBuilder();
         var seconds = timeDelta().getSeconds();
 
+        long amount = seconds;
         if (seconds / 60 > 0) {
-            deltaString.append(seconds / 60);
-            deltaString.append("m");
+            amount = seconds / 60;
+            deltaString.append(amount);
+            deltaString.append(" minute");
         } else {
-            deltaString.append(seconds);
-            deltaString.append("s");
+            deltaString.append(amount);
+            deltaString.append(" second");
         }
+        if (amount != 1) {
+            deltaString.append('s');
+        }
+        deltaString.append(" ago");
         return deltaString.toString();
     }
 
     @Override
     public String toString() {
-        return user.getName() + " - " + text + " (" + deltaString() + ')';
+        return user.getName() + " - " + text + " (" + deltaPrintString() + ')';
     }
 
     @Override

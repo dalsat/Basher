@@ -3,7 +3,7 @@
 # Basher
 A command line social network.
 
-Implementation for the programming kata described at: [xpeppers/social_networking_kata](https://github.com/xpeppers/social_networking_kata)
+Implementation of the programming kata described in: [xpeppers/social_networking_kata](https://github.com/xpeppers/social_networking_kata)
 
 ## Available Commands
 
@@ -15,14 +15,12 @@ Implementation for the programming kata described at: [xpeppers/social_networkin
 - reset
 
 
-As per specifications of the kata, the commands are not particularly responsive. If no error is printed, assume that the command was successful.
-
 ## Run Basher
 
-### In a Docker Container (preferred aproach)
+### In a Docker Container (Recommended)
 TODO: mongo compose file
 
-### Build Basher locally
+### Build Basher Locally
 Build the project with:
 ```
 ./gradlew assemble
@@ -41,7 +39,7 @@ Finally, run the startup script:
 ```
 The standard error is redirected to /dev/null to suppress the output of the overly verbose MongoDB driver.
 
-## Select the database
+## Select the Database
 
 Basher comes with the support for in-memory and MongoDB databases.
 

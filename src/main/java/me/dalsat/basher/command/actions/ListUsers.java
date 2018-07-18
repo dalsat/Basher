@@ -16,10 +16,9 @@ public class ListUsers implements Action {
 
     @Override
     public String execute(Command command, Store store) {
-        StringBuilder sb = new StringBuilder();
-
         return store.listOfUsers().stream()
                 .map(User::getName)
+                .sorted()
                 .collect(Collectors.joining("\n"));
     }
 }

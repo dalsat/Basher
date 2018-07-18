@@ -21,7 +21,7 @@ public interface Stores {
         }
 
         if (dbType.equals("mongo")) {
-            System.out.println("Initializinge MongoDB");
+            System.out.println("Initializing MongoDB");
             return newMongoStore();
         }
 

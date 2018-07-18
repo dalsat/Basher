@@ -13,6 +13,7 @@ import java.io.InputStream;
  * Main entry point for the application.
  * Provides the methods to start/stop the application, and implements the
  * cycle read->interpret->execute->feedback.
+ * This cass is a singleton.
  */
 public enum Basher {
 
@@ -33,7 +34,10 @@ public enum Basher {
     }
 
     private String banner() {
-        return "Welcome to Basher: the command line social network.";
+        return  "*************************************\n" +
+                "*     --- Welcome to Basher ---     *\n" +
+                "*  The command line social network  *\n" +
+                "*************************************";
     }
     private String byeBanner() {
         return "Quitting Basher. Goodbye!";

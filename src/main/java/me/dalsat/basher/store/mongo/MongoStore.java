@@ -35,8 +35,17 @@ public class MongoStore implements Store {
     private void initializeStore() {
         morphia.mapPackage("me.dalsat.basher.store.mongo");
 
-        datastore = morphia.createDatastore(new MongoClient(), dbName);
+        datastore = morphia.createDatastore(new MongoClient(dbHost()), dbName);
         datastore.ensureIndexes();
+    }
+
+    private String dbHost() {
+        var hostString = System.getenv("BASHER_MONGO_HOST");
+        if (hostString == null) {
+            return "localhost:27017";
+        } else {
+            return hostString;
+        }
     }
 
     private Optional<User> getUser(String username) {
