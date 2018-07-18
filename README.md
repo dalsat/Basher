@@ -34,6 +34,12 @@ From the project directory run:
 docker-compose run app
 ```
 
+This will setup a container running the Basher application, and a container running the MongoDB database.
+You can stop and delete the images by running the command:
+```
+docker-compose down
+```
+
 ### Build Basher Locally
 
 Note that Basher is build for Java 10. You will need a Java 10 JDK installed in your machine to build Basher locally.
