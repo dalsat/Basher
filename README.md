@@ -34,8 +34,8 @@ From the project directory run:
 docker-compose run app
 ```
 
-This will setup a container running the Basher application, and a container running the MongoDB database.
-You can stop and delete the images by running the command:
+This will setup two containers: one running the Basher application and one running the MongoDB database.
+You can stop and delete the containers by running the command:
 ```
 docker-compose down
 ```
